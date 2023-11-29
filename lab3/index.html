@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Лаб 3</title>
+</head>
+
+<body>
+    <div class="flex-container" id="main"></div>
+</body>
+
+<template id="template">
+    <tr>
+        <td class="record"></td>
+        <td></td>
+    </tr>
+</template>
+
+<script>
+    var parent = document.getElementById("main");
+    var template = document.getElementById("template");
+
+    var promises = [];
+
+    for (var i = 0; i < 5; i++) {
+        let item = document.createElement("div");
+        item.className = "flex-item";
+        promises.push(getData().then((value) => {
+            let data = value.results[0];
+            var t = `
+            <div class="circle-container">
+                <img src="${data.picture.large}">
+            </div>
+            <p>City: ${data.location.city}</p>
+            <p>Country: ${data.location.country}</p>
+            <p>Postcode: ${data.location.postcode}</p>
+            <p>Email: ${data.email}</p>
+            `;
+            item.innerHTML = t;
+            parent.appendChild(item);
+        }));
+    }
+
+    Promise.all(promises).then(() => {
+        console.log("All data loaded");
+    });
+
+    async function getData() {
+        var response = await fetch('https://randomuser.me/api');
+        var data = await response.json();
+        return data;
+    }
+</script>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Лаб 2</title>
+</head>
+
+<body>
+    <form onsubmit="validate()">
+        <p><input type="text" id="name" placeholder="1. ПІБ"></p>
+        <p><input type="text" id="phone" placeholder="4. Телефон"></p>
+        <p><input type="text" id="id" placeholder="5. ID-card"></p>
+        <p><input type="text" id="faculty" placeholder="6. Факультет"></p>
+        <p><input type="text" id="birthdate" placeholder="7. Дата народження"></p>
+        <p><input type="submit"></p>
+        <p><input type="color" id="color" value="#ff0000" style="width:300px"></p>
+    </form>
+
+    <script>
+        function validate() {
+            var regex = {
+                name: /[А-ЩЬЮЯҐЄІЇа-щьюяґєії]+ [А-ЩЬЮЯҐЄІЇ]\. [А-ЩЬЮЯҐЄІЇ]\.$/,
+                phone: /\([0-9]{3}\)-[0-9]{3}-[0-9]{2}-[0-9]{2}$/,
+                id: /[А-ЩЬЮЯҐЄІЇA-Z]{2} №[0-9]{6}$/,
+                faculty: /[А-ЩЬЮЯҐЄІЇA-Z]{4}$/,
+                birthdate: /\d{2}\.\d{2}\.\d{4}$/
+            };
+            var response = {};
+            for (var key in regex) {
+                var value = document.getElementById(key).value;
+                if (!regex[key].test(value)) {
+                    response[key] = "invalid";
+                }
+            }
+            if (Object.keys(response).length === 0) {
+                alert("valid");
+                return true;
+            }
+            alert(JSON.stringify(response, null, 2)
+                .replace(/['"]+/g, '')
+                .replace(/(\{\n|\})+/g, ''));
+            return false;
+        }
+        var size = [6, 6];
+
+        function tableCreate() {
+            var body = document.getElementsByTagName('body')[0];
+            var tbl = document.createElement('table');
+            var tbdy = document.createElement('tbody');
+            var counter = 1;
+            for (var i = 0; i < size[0]; i++) {
+                var tr = document.createElement('tr');
+                for (var j = 0; j < size[1]; j++) {
+                    var td = document.createElement('td');
+                    td.setAttribute('id', `${i} ${j}`);
+                    td.appendChild(document.createTextNode(counter));
+                    td.addEventListener('click', e => colorize(e.target.id));
+                    td.addEventListener('dblclick', recolor);
+                    tr.appendChild(td);
+                    counter++;
+                }
+                tbdy.appendChild(tr);
+            }
+            tbl.appendChild(tbdy);
+            body.appendChild(tbl);
+        }
+
+        function colorize(id) {
+            var color = document.getElementById("color").value;
+            for (let i = 0; i < size[0]; i++) {
+                for (let j = 0; j < size[1]; j++) {
+                    document.getElementById(`${i} ${j}`).style.backgroundColor = "";
+                }
+            }
+            document.getElementById(id).style.backgroundColor = color;
+        }
+
+        function recolor() {
+            var color = document.getElementById("color").value;
+            for (let i = 0; i < size[0]; i++) {
+                for (let j = 0; j < size[1]; j++) {
+                    if (i == j) {
+                        document.getElementById(`${i} ${j}`).style.backgroundColor = color;
+                    } else {
+                        document.getElementById(`${i} ${j}`).style.backgroundColor = "";
+                    }
+                }
+            }
+
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            tableCreate();
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        input[type='text'] {
+            padding: 10px;
+            width: 275px;
+            font-size: 1.2em;
+        }
+
+        input[type='submit'] {
+            background-color: #ffed89;
+            width: 300px;
+            border: none;
+            border-radius: 20px;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        td {
+            border-radius: 5px;
+        }
+
+        table {
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 5px;
+        }
+    </style>
+
+</body>
+
+</html>

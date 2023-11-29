@@ -1,0 +1,52 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.parent {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex-grow: 1;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+.child {
+    display: flex;
+    justify-content: center;
+}
+
+.img {
+    height: calc(100vh - 250px);
+    width: 80%;
+    background: url("../pic/cat1.jpg");
+    background-size: 100%;
+}
+
+.header {
+    width: 100%;
+    height: 200px;
+    background: url("../pic/nature.jpg");
+    background-position: 50% 70%;
+    background-size: 1700px;
+}
+
+.sidebar {
+    width: 20%;
+    background: rgb(202, 202, 202);
+    height: calc(100vh - 250px);
+}
+
+.footer {
+    background-color: rgb(138, 138, 138);
+    height: 50px;
+}

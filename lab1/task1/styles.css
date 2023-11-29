@@ -1,0 +1,38 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    text-align: center; 
+}
+
+header {
+    width: 100%;
+    height: 200px;
+    background: url("../pic/nature.jpg");
+    background-position: 50% 70%;
+    background-size: 1600px;
+}
+
+footer {
+    clear: both;
+    background-color: rgb(138, 138, 138);
+    height: 50px;
+}
+
+.sidebar {
+    width: 20%;
+    background: rgb(202, 202, 202);
+    float: left;
+    height: calc(100vh - 250px);
+}
+
+.img {
+    height: calc(100vh - 250px);
+    width: 80%;
+    float: right;
+    background: url("../pic/cat1.jpg");
+    background-size: 100%;
+}
+
+header h1 {
+    margin: 0;
+}
